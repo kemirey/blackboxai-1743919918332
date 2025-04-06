@@ -11,6 +11,10 @@ requireLogin();
     <title>Tambah Surat Masuk - Kecamatan Masama</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
 </head>
 <body class="bg-gray-100">
     <div class="min-h-screen">
@@ -68,8 +72,7 @@ requireLogin();
                         <div>
                             <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Surat*</label>
                             <input type="text" id="date" name="date" placeholder="dd/mm/yyyy" required
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                                   pattern="\d{2}/\d{2}/\d{4}">
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 datepicker">
                             <p class="mt-1 text-sm text-gray-500">Format: dd/mm/yyyy</p>
                         </div>
                     </div>
@@ -95,5 +98,17 @@ requireLogin();
             </div>
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
+    <script>
+        flatpickr("#date", {
+            dateFormat: "d/m/Y",
+            locale: "id",
+            allowInput: true,
+            disableMobile: true,
+            minDate: "today",
+            maxDate: new Date().fp_incr(30) // 30 days from now
+        });
+    </script>
 </body>
 </html>
