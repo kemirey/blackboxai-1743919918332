@@ -11,10 +11,13 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
             <div class="text-center mb-8">
-                <h1 class="text-2xl font-bold text-blue-600">
-                    <i class="fas fa-envelope mr-2"></i>
-                    Sistem Surat Kecamatan Masama
-                </h1>
+                <div class="flex justify-center mb-4">
+                    <img src="public/images/banggai.png" alt="Logo Kabupaten Banggai" class="h-24 object-contain">
+                </div>
+                    <h1 class="text-2xl font-bold text-blue-600">
+                        <i class="fas fa-envelope mr-2"></i>
+                        Agenda Surat Kec. Masama
+                    </h1>
                 <p class="text-gray-600 mt-2">Kabupaten Banggai</p>
             </div>
             
