@@ -12,10 +12,17 @@ try {
     // Hitung total surat keluar
     $outgoing = $conn->query("SELECT COUNT(*) as total FROM outgoing_letters")->fetch()['total'];
     
-    // Hitung surat bulan ini
+    // Hitung surat bulan ini (dengan prepared statement)
     $currentMonth = date('m');
-    $monthlyIncoming = $conn->query("SELECT COUNT(*) as total FROM incoming_letters WHERE MONTH(date) = $currentMonth")->fetch()['total'];
-    $monthlyOutgoing = $conn->query("SELECT COUNT(*) as total FROM outgoing_letters WHERE MONTH(date) = $currentMonth")->fetch()['total'];
+    $currentYear = date('Y');
+    
+    $stmt = $conn->prepare("SELECT COUNT(*) as total FROM incoming_letters WHERE MONTH(date) = ? AND YEAR(date) = ?");
+    $stmt->execute([$currentMonth, $currentYear]);
+    $monthlyIncoming = $stmt->fetch()['total'];
+    
+    $stmt = $conn->prepare("SELECT COUNT(*) as total FROM outgoing_letters WHERE MONTH(date) = ? AND YEAR(date) = ?");
+    $stmt->execute([$currentMonth, $currentYear]);
+    $monthlyOutgoing = $stmt->fetch()['total'];
 
     echo json_encode([
         'success' => true,
