@@ -11,6 +11,23 @@ requireLogin();
     <title>Dashboard - Sistem Surat Kecamatan Masama</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .stat-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .stat-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <div class="min-h-screen">
@@ -19,7 +36,7 @@ requireLogin();
             <div class="container mx-auto px-4 py-4 flex justify-between items-center">
                 <h1 class="text-2xl font-bold">
                     <i class="fas fa-envelope mr-2"></i>
-                    Sistem Surat Kecamatan Masama
+                    Agenda Surat Kec. Masama
                 </h1>
                 <div>
                     <span class="mr-4">Kabupaten Banggai</span>
@@ -32,8 +49,64 @@ requireLogin();
 
         <!-- Main Content -->
         <main class="container mx-auto px-4 py-8">
-            <!-- Search and Add Button -->
-            <div class="flex justify-between items-center mb-6">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow stat-card">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                            <i class="fas fa-envelope-open-text text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-500 text-sm">Surat Masuk</h3>
+                            <p class="text-2xl font-bold" id="incoming-count">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow stat-card">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+                            <i class="fas fa-paper-plane text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-500 text-sm">Surat Keluar</h3>
+                            <p class="text-2xl font-bold" id="outgoing-count">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow stat-card">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
+                            <i class="fas fa-calendar-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-500 text-sm">Bulan Ini</h3>
+                            <p class="text-2xl font-bold" id="monthly-incoming">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow stat-card">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
+                            <i class="fas fa-calendar-check text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-500 text-sm">Bulan Ini</h3>
+                            <p class="text-2xl font-bold" id="monthly-outgoing">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Upload, Search and Add Button -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                <div class="flex items-center">
+                    <form id="uploadForm" class="mr-4">
+                        <label class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer">
+                            <i class="fas fa-upload mr-2"></i> Upload Logo
+                            <input type="file" name="image" id="imageUpload" class="hidden" accept="image/*">
+                        </label>
+                    </form>
+                    <div id="uploadStatus" class="text-sm hidden"></div>
+                </div>
                 <div class="relative w-64">
                     <input type="text" id="searchInput" placeholder="Cari surat..." 
                            class="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -114,8 +187,26 @@ requireLogin();
             });
         });
 
+        // Load stats function
+        function loadStats() {
+            fetch('server/stats.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('incoming-count').textContent = data.data.incoming;
+                        document.getElementById('outgoing-count').textContent = data.data.outgoing;
+                        document.getElementById('monthly-incoming').textContent = data.data.monthly_incoming;
+                        document.getElementById('monthly-outgoing').textContent = data.data.monthly_outgoing;
+                    }
+                });
+        }
+
         // Initial load
         loadLetters('incoming');
+        loadStats();
+        
+        // Refresh stats every 30 seconds
+        setInterval(loadStats, 30000);
 
         let currentTab = 'incoming';
         let currentPage = 1;
