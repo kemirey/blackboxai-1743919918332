@@ -5,7 +5,15 @@ requireLogin();
 
 header('Content-Type: application/json');
 
+// Log untuk debugging
+file_put_contents('debug.log', "\n\n[".date('Y-m-d H:i:s')."] New Request\n", FILE_APPEND);
+file_put_contents('debug.log', "GET Parameters: ".print_r($_GET, true)."\n", FILE_APPEND);
+
 try {
+    // Test koneksi database
+    file_put_contents('debug.log', "Testing database connection...\n", FILE_APPEND);
+    $conn->query("SELECT 1");
+    file_put_contents('debug.log', "✓ Database connection OK\n", FILE_APPEND);
     $type = $_GET['type'] ?? 'incoming';
     $search = $_GET['search'] ?? '';
     $page = $_GET['page'] ?? 1;
