@@ -104,8 +104,8 @@ requireLogin();
             locale: "id",
             allowInput: true,
             disableMobile: true,
-            minDate: "today",
-            maxDate: new Date().fp_incr(30) // 30 days from now
+            minDate: new Date().fp_incr(-30), // 30 days before today
+            maxDate: new Date().fp_incr(365) // 1 year from now
         });
     </script>
 </body>
