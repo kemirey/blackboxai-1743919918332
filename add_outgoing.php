@@ -36,7 +36,7 @@ requireLogin();
             <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">
                     <i class="fas fa-paper-plane mr-2 text-yellow-500"></i>
-                    Tambah Surat Keluar
+                    Tambah Surat Keluar - Kec. Masama
                 </h2>
 
                 <?php if (isset($_GET['error'])): ?>
