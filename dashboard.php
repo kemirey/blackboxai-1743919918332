@@ -96,22 +96,8 @@ requireLogin();
                     </div>
                 </div>
             </div>
-            <!-- Upload, Search and Add Button -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                <div class="flex items-center">
-                    <form id="uploadForm" class="mr-4">
-                        <label class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer">
-                            <i class="fas fa-upload mr-2"></i> Upload Logo
-                            <input type="file" name="image" id="imageUpload" class="hidden" accept="image/*">
-                        </label>
-                    </form>
-                    <div id="uploadStatus" class="text-sm hidden"></div>
-                </div>
-                <div class="relative w-64">
-                    <input type="text" id="searchInput" placeholder="Cari surat..." 
-                           class="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                </div>
+            <!-- Search and Add Button -->
+            <div class="flex justify-end mb-6">
                 <div class="flex space-x-2">
                     <a href="add_incoming.php" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
                         <i class="fas fa-plus mr-2"></i>Surat Masuk
