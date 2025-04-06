@@ -1,4 +1,4 @@
-# Sistem Surat Kecamatan Masama
+# Agenda Surat Kec. Masama
 
 Aplikasi berbasis web untuk mencatat agenda surat masuk dan keluar di Kecamatan Masama, Kabupaten Banggai.
 
